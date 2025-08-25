@@ -34,6 +34,7 @@ export type Database = {
           service_price: number
           status: string
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           booking_date: string
@@ -54,6 +55,7 @@ export type Database = {
           service_price: number
           status?: string
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           booking_date?: string
@@ -74,6 +76,31 @@ export type Database = {
           service_price?: number
           status?: string
           updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
