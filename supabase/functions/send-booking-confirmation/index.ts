@@ -104,7 +104,7 @@ serve(async (req: Request) => {
         console.log("Resend API Key:", resendApiKey ? "Set" : "Not set");
         
         if (!resendApiKey) {
-          console.error("RESEND_API_KEY not set");
+          console.error("RESEND_API_KEY not set - skipping email");
         } else {
           const resend = new Resend(resendApiKey);
           
@@ -152,7 +152,6 @@ serve(async (req: Request) => {
                     ${bookingData.petNotes ? `<p style="margin: 8px 0;"><strong>Observações:</strong> ${bookingData.petNotes}</p>` : ''}
                   </div>
                 </div>
-                
                 
                 <div style="border-top: 2px solid #e5e7eb; padding-top: 25px; margin-top: 30px;">
                   <h3 style="color: #374151; margin-bottom: 15px;">✅ Confirmação de Agendamento</h3>
