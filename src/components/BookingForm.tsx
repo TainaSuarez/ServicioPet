@@ -13,9 +13,13 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 
 const BookingForm = () => {
+  const { toast } = useToast();
+  const { user } = useAuth();
+  
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -27,12 +31,10 @@ const BookingForm = () => {
     notes: ""
   });
   const [ownerInfo, setOwnerInfo] = useState({
-    name: "",
+    name: user?.user_metadata?.display_name || "",
     phone: "",
-    email: ""
+    email: user?.email || ""
   });
-
-  const { toast } = useToast();
 
   const services = [
     { id: "basic-bath", name: "Banho Básico", price: 45, duration: "45 min" },
@@ -64,42 +66,54 @@ const BookingForm = () => {
       return;
     }
 
+    if (!user) {
+      toast({
+        title: "Usuário não autenticado",
+        description: "Você precisa estar logado para fazer uma reserva.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
       toast({
         title: "Processando agendamento...",
-        description: "Salvando seus dados e enviando confirmação por email.",
+        description: "Salvando sua reserva...",
       });
 
-      // Preparar dados para envio
+      // Preparar dados para inserção no banco
       const bookingData = {
-        serviceId: selectedService,
-        serviceName: selectedServiceData?.name || "",
-        servicePrice: selectedServiceData?.price || 0,
-        serviceDuration: selectedServiceData?.duration || "",
-        bookingDate: format(selectedDate, "yyyy-MM-dd"),
-        bookingTime: selectedTime,
-        petName: petInfo.name,
-        petBreed: petInfo.breed || null,
-        petSize: petInfo.size || null,
-        petAge: petInfo.age || null,
-        petNotes: petInfo.notes || null,
-        ownerName: ownerInfo.name,
-        ownerPhone: ownerInfo.phone,
-        ownerEmail: ownerInfo.email || null,
+        user_id: user.id,
+        service_id: selectedService,
+        service_name: selectedServiceData?.name || "",
+        service_price: selectedServiceData?.price || 0,
+        service_duration: selectedServiceData?.duration || "",
+        booking_date: format(selectedDate, "yyyy-MM-dd"),
+        booking_time: selectedTime,
+        pet_name: petInfo.name,
+        pet_breed: petInfo.breed || null,
+        pet_size: petInfo.size || null,
+        pet_age: petInfo.age || null,
+        pet_notes: petInfo.notes || null,
+        owner_name: ownerInfo.name,
+        owner_phone: ownerInfo.phone,
+        owner_email: ownerInfo.email || null,
+        status: 'pending'
       };
 
-      // Chamar edge function para salvar no banco e enviar email
-      const { data, error } = await supabase.functions.invoke('send-booking-confirmation', {
-        body: bookingData
-      });
+      // Inserir no banco de dados
+      const { error } = await supabase
+        .from('bookings')
+        .insert([bookingData]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Database error:', error);
+        throw new Error('Erro ao salvar reserva');
+      }
 
       toast({
-        title: "Agendamento confirmado! 🐾",
-        description: ownerInfo.email 
-          ? "Salvamos seu agendamento e enviamos a confirmação por email!" 
-          : "Agendamento salvo com sucesso!",
+        title: "Reserva confirmada! 🐾",
+        description: "Sua reserva foi salva com sucesso. Você pode visualizá-la na sua conta.",
       });
 
       // Reset form
@@ -107,7 +121,11 @@ const BookingForm = () => {
       setSelectedService("");
       setSelectedTime("");
       setPetInfo({ name: "", breed: "", size: "", age: "", notes: "" });
-      setOwnerInfo({ name: "", phone: "", email: "" });
+      setOwnerInfo({ 
+        name: user?.user_metadata?.display_name || "",
+        phone: "",
+        email: user?.email || ""
+      });
 
     } catch (error: any) {
       console.error("Erro ao processar agendamento:", error);

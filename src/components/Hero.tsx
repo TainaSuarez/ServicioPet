@@ -1,11 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Heart, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import heroImage from "@/assets/hero-pets.jpg";
 
 const Hero = () => {
-  const scrollToReservar = () => {
-    const element = document.getElementById('reservar');
-    element?.scrollIntoView({ behavior: 'smooth' });
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleReserveClick = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/auth');
+    }
+  };
+
+  const scrollToServices = () => {
+    const element = document.getElementById('servicios');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -31,15 +46,16 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
-                onClick={scrollToReservar}
+                onClick={handleReserveClick}
                 className="bg-gradient-button hover:opacity-90 transition-all duration-300 shadow-soft hover:shadow-card text-lg px-8"
               >
                 <Calendar className="mr-2 h-5 w-5" />
-                Agendar Agora
+                {user ? 'Fazer Reserva' : 'Entrar e Reservar'}
               </Button>
               <Button 
                 size="lg" 
                 variant="outline"
+                onClick={scrollToServices}
                 className="border-primary text-primary hover:bg-pink-accent transition-all duration-300"
               >
                 Ver Serviços
