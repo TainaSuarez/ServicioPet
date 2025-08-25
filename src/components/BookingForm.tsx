@@ -13,6 +13,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const BookingForm = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -51,7 +52,7 @@ const BookingForm = () => {
 
   const selectedServiceData = services.find(s => s.id === selectedService);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!selectedDate || !selectedService || !selectedTime || !petInfo.name || !ownerInfo.name || !ownerInfo.phone) {
@@ -63,8 +64,46 @@ const BookingForm = () => {
       return;
     }
 
-    // Criar mensagem para WhatsApp
-    const whatsappMessage = `Olá! Gostaria de confirmar meu agendamento:
+    try {
+      toast({
+        title: "Processando agendamento...",
+        description: "Salvando seus dados e enviando confirmação por email.",
+      });
+
+      // Preparar dados para envio
+      const bookingData = {
+        serviceId: selectedService,
+        serviceName: selectedServiceData?.name || "",
+        servicePrice: selectedServiceData?.price || 0,
+        serviceDuration: selectedServiceData?.duration || "",
+        bookingDate: format(selectedDate, "yyyy-MM-dd"),
+        bookingTime: selectedTime,
+        petName: petInfo.name,
+        petBreed: petInfo.breed || null,
+        petSize: petInfo.size || null,
+        petAge: petInfo.age || null,
+        petNotes: petInfo.notes || null,
+        ownerName: ownerInfo.name,
+        ownerPhone: ownerInfo.phone,
+        ownerEmail: ownerInfo.email || null,
+      };
+
+      // Chamar edge function para salvar no banco e enviar email
+      const { data, error } = await supabase.functions.invoke('send-booking-confirmation', {
+        body: bookingData
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Agendamento confirmado! 🐾",
+        description: ownerInfo.email 
+          ? "Salvamos seu agendamento e enviamos a confirmação por email!" 
+          : "Agendamento salvo! Entraremos em contato via WhatsApp.",
+      });
+
+      // Criar mensagem para WhatsApp (opcional, para backup)
+      const whatsappMessage = `Olá! Confirmando meu agendamento:
 
 🐾 *DADOS DA RESERVA*
 • Serviço: ${selectedServiceData?.name}
@@ -85,23 +124,27 @@ ${petInfo.size ? `• Tamanho: ${petInfo.size}` : ''}
 ${petInfo.age ? `• Idade: ${petInfo.age}` : ''}
 ${petInfo.notes ? `• Observações: ${petInfo.notes}` : ''}
 
-Aguardo confirmação! 🐾`;
+Agendamento confirmado! 🐾`;
 
-    // Abrir WhatsApp
-    const whatsappUrl = `https://wa.me/5555815326811?text=${encodeURIComponent(whatsappMessage)}`;
-    window.open(whatsappUrl, '_blank');
+      // Abrir WhatsApp como backup
+      const whatsappUrl = `https://wa.me/5555815326811?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, '_blank');
 
-    toast({
-      title: "Redirecionando para WhatsApp",
-      description: "Enviando dados da reserva para confirmação.",
-    });
+      // Reset form
+      setSelectedDate(undefined);
+      setSelectedService("");
+      setSelectedTime("");
+      setPetInfo({ name: "", breed: "", size: "", age: "", notes: "" });
+      setOwnerInfo({ name: "", phone: "", email: "" });
 
-    // Reset form
-    setSelectedDate(undefined);
-    setSelectedService("");
-    setSelectedTime("");
-    setPetInfo({ name: "", breed: "", size: "", age: "", notes: "" });
-    setOwnerInfo({ name: "", phone: "", email: "" });
+    } catch (error: any) {
+      console.error("Erro ao processar agendamento:", error);
+      toast({
+        title: "Erro ao processar agendamento",
+        description: "Ocorreu um erro. Tente novamente ou entre em contato via WhatsApp.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
