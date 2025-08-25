@@ -99,36 +99,8 @@ const BookingForm = () => {
         title: "Agendamento confirmado! 🐾",
         description: ownerInfo.email 
           ? "Salvamos seu agendamento e enviamos a confirmação por email!" 
-          : "Agendamento salvo! Entraremos em contato via WhatsApp.",
+          : "Agendamento salvo com sucesso!",
       });
-
-      // Criar mensagem para WhatsApp (opcional, para backup)
-      const whatsappMessage = `Olá! Confirmando meu agendamento:
-
-🐾 *DADOS DA RESERVA*
-• Serviço: ${selectedServiceData?.name}
-• Data: ${format(selectedDate, "PPPP", { locale: es })}
-• Horário: ${selectedTime}
-• Duração: ${selectedServiceData?.duration}
-• Valor: R$ ${selectedServiceData?.price}
-
-👤 *DADOS DO DONO*
-• Nome: ${ownerInfo.name}
-• Telefone: ${ownerInfo.phone}
-${ownerInfo.email ? `• Email: ${ownerInfo.email}` : ''}
-
-🐕 *DADOS DO PET*
-• Nome: ${petInfo.name}
-${petInfo.breed ? `• Raça: ${petInfo.breed}` : ''}
-${petInfo.size ? `• Tamanho: ${petInfo.size}` : ''}
-${petInfo.age ? `• Idade: ${petInfo.age}` : ''}
-${petInfo.notes ? `• Observações: ${petInfo.notes}` : ''}
-
-Agendamento confirmado! 🐾`;
-
-      // Abrir WhatsApp como backup
-      const whatsappUrl = `https://wa.me/5555815326811?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappUrl, '_blank');
 
       // Reset form
       setSelectedDate(undefined);
@@ -141,7 +113,7 @@ Agendamento confirmado! 🐾`;
       console.error("Erro ao processar agendamento:", error);
       toast({
         title: "Erro ao processar agendamento",
-        description: "Ocorreu um erro. Tente novamente ou entre em contato via WhatsApp.",
+        description: "Ocorreu um erro. Tente novamente ou entre em contato conosco.",
         variant: "destructive"
       });
     }
