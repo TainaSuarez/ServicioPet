@@ -153,13 +153,14 @@ serve(async (req: Request) => {
                   </div>
                 </div>
                 
+                
                 <div style="border-top: 2px solid #e5e7eb; padding-top: 25px; margin-top: 30px;">
-                  <h3 style="color: #374151; margin-bottom: 15px;">📞 Próximos Passos</h3>
+                  <h3 style="color: #374151; margin-bottom: 15px;">✅ Confirmação de Agendamento</h3>
                   <p style="color: #4b5563; line-height: 1.6;">
-                    Entraremos em contato via WhatsApp no número <strong>${bookingData.ownerPhone}</strong> para confirmar todos os detalhes do agendamento.
+                    Seu agendamento foi <strong>confirmado com sucesso</strong>! Aguardamos você e o ${bookingData.petName} na data e horário marcados.
                   </p>
                   <p style="color: #4b5563; line-height: 1.6;">
-                    Se precisar fazer alguma alteração ou tiver dúvidas, entre em contato conosco pelo WhatsApp: <strong>(55) 55 8132-6811</strong>
+                    Se precisar fazer alguma alteração ou tiver dúvidas, responda a este email que entraremos em contato.
                   </p>
                 </div>
                 
