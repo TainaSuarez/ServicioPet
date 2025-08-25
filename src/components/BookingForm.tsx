@@ -63,9 +63,37 @@ const BookingForm = () => {
       return;
     }
 
+    // Criar mensagem para WhatsApp
+    const whatsappMessage = `Olá! Gostaria de confirmar meu agendamento:
+
+🐾 *DADOS DA RESERVA*
+• Serviço: ${selectedServiceData?.name}
+• Data: ${format(selectedDate, "PPPP", { locale: es })}
+• Horário: ${selectedTime}
+• Duração: ${selectedServiceData?.duration}
+• Valor: R$ ${selectedServiceData?.price}
+
+👤 *DADOS DO DONO*
+• Nome: ${ownerInfo.name}
+• Telefone: ${ownerInfo.phone}
+${ownerInfo.email ? `• Email: ${ownerInfo.email}` : ''}
+
+🐕 *DADOS DO PET*
+• Nome: ${petInfo.name}
+${petInfo.breed ? `• Raça: ${petInfo.breed}` : ''}
+${petInfo.size ? `• Tamanho: ${petInfo.size}` : ''}
+${petInfo.age ? `• Idade: ${petInfo.age}` : ''}
+${petInfo.notes ? `• Observações: ${petInfo.notes}` : ''}
+
+Aguardo confirmação! 🐾`;
+
+    // Abrir WhatsApp
+    const whatsappUrl = `https://wa.me/5555815326811?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank');
+
     toast({
-      title: "Agendamento confirmado!",
-      description: `Seu horário para ${petInfo.name} foi agendado para ${format(selectedDate, "PPPP", { locale: es })} às ${selectedTime}.`,
+      title: "Redirecionando para WhatsApp",
+      description: "Enviando dados da reserva para confirmação.",
     });
 
     // Reset form
