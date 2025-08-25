@@ -46,14 +46,9 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-2 text-sm text-muted-foreground">
               <Phone className="h-4 w-4" />
-              <a 
-                href="https://wa.me/5555581326811" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-primary transition-colors"
-              >
+              <span className="hover:text-primary transition-colors">
                 (55) 55 8132-6811
-              </a>
+              </span>
             </div>
             <Button 
               onClick={() => scrollToSection('reservar')}
