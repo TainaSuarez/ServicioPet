@@ -42,11 +42,21 @@ const Auth = () => {
       const { error } = await signIn(loginData.email, loginData.password);
       
       if (error) {
+        let errorMessage = "Erro desconhecido";
+        
+        if (error.message === "Invalid login credentials") {
+          errorMessage = "Email ou senha incorretos. Se você acabou de se registrar, verifique seu email primeiro.";
+        } else if (error.message.includes("Email not confirmed")) {
+          errorMessage = "Por favor, confirme seu email antes de fazer login";
+        } else if (error.message.includes("User not found")) {
+          errorMessage = "Usuário não encontrado. Verifique o email ou registre-se primeiro.";
+        } else {
+          errorMessage = error.message;
+        }
+        
         toast({
           title: "Erro ao fazer login",
-          description: error.message === "Invalid login credentials" 
-            ? "Email ou senha incorretos" 
-            : error.message,
+          description: errorMessage,
           variant: "destructive"
         });
       } else {
@@ -98,17 +108,27 @@ const Auth = () => {
       );
       
       if (error) {
+        let errorMessage = "Erro desconhecido";
+        
+        if (error.message === "User already registered") {
+          errorMessage = "Este email já está cadastrado. Tente fazer login ou use outro email.";
+        } else if (error.message.includes("over_email_send_rate_limit")) {
+          errorMessage = "Muitas tentativas. Aguarde um momento antes de tentar novamente.";
+        } else if (error.message.includes("signup_disabled")) {
+          errorMessage = "Cadastro temporariamente desabilitado";
+        } else {
+          errorMessage = error.message;
+        }
+        
         toast({
           title: "Erro ao criar conta",
-          description: error.message === "User already registered" 
-            ? "Este email já está cadastrado" 
-            : error.message,
+          description: errorMessage,
           variant: "destructive"
         });
       } else {
         toast({
           title: "Conta criada com sucesso! 🐾",
-          description: "Você já pode fazer reservas para seu pet!"
+          description: "Verifique seu email para confirmar a conta antes de fazer login.",
         });
       }
     } catch (error) {
