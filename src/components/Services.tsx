@@ -1,0 +1,154 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Droplets, Scissors, Sparkles, Heart, Clock, Star } from "lucide-react";
+import servicesImage from "@/assets/services-illustration.jpg";
+
+const Services = () => {
+  const services = [
+    {
+      icon: Droplets,
+      name: "Baño Básico",
+      description: "Baño con champú especial, secado y cepillado",
+      price: "$25",
+      duration: "45 min",
+      popular: false
+    },
+    {
+      icon: Sparkles,
+      name: "Baño Premium",
+      description: "Baño, acondicionador, perfume y tratamiento hidratante",
+      price: "$40",
+      duration: "60 min",
+      popular: true
+    },
+    {
+      icon: Scissors,
+      name: "Corte de Pelo",
+      description: "Corte profesional según raza y estilo deseado",
+      price: "$35",
+      duration: "75 min",
+      popular: false
+    },
+    {
+      icon: Heart,
+      name: "Paquete Completo",
+      description: "Baño premium + corte + limpieza de oídos + corte de uñas",
+      price: "$65",
+      duration: "120 min",
+      popular: true
+    },
+    {
+      icon: Star,
+      name: "Spa Relajante",
+      description: "Tratamiento completo con masaje y aromaterapia",
+      price: "$80",
+      duration: "150 min",
+      popular: false
+    },
+    {
+      icon: Sparkles,
+      name: "Express",
+      description: "Baño rápido y secado para urgencias",
+      price: "$20",
+      duration: "30 min",
+      popular: false
+    }
+  ];
+
+  return (
+    <section id="servicios" className="py-20 bg-pink-soft/30">
+      <div className="container mx-auto px-4">
+        <div className="text-center space-y-4 mb-16">
+          <Badge variant="secondary" className="text-primary">
+            Nuestros Servicios
+          </Badge>
+          <h2 className="text-4xl font-bold font-heading text-foreground">
+            Servicios de Grooming Profesional
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Ofrecemos una amplia gama de servicios para mantener a tu mascota 
+            hermosa, saludable y feliz.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
+            return (
+              <Card 
+                key={index} 
+                className={`relative bg-gradient-card border-0 shadow-card hover:shadow-float transition-all duration-300 hover:-translate-y-1 ${
+                  service.popular ? 'ring-2 ring-primary' : ''
+                }`}
+              >
+                {service.popular && (
+                  <Badge className="absolute -top-2 left-4 bg-gradient-button">
+                    Más Popular
+                  </Badge>
+                )}
+                <CardHeader className="text-center pb-4">
+                  <div className="mx-auto w-16 h-16 bg-pink-accent rounded-full flex items-center justify-center mb-4">
+                    <IconComponent className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl font-heading">{service.name}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center space-y-4">
+                  <p className="text-muted-foreground">{service.description}</p>
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center space-x-1 text-muted-foreground">
+                      <Clock className="h-4 w-4" />
+                      <span>{service.duration}</span>
+                    </div>
+                    <div className="text-2xl font-bold text-primary">{service.price}</div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        <div className="bg-card rounded-2xl p-8 shadow-card">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="space-y-6">
+              <h3 className="text-3xl font-bold font-heading text-foreground">
+                ¿Por qué elegir Patinhas Pet Pamper?
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-start space-x-3">
+                  <Heart className="h-5 w-5 text-primary mt-1" fill="currentColor" />
+                  <div>
+                    <div className="font-semibold">Cuidado Personalizado</div>
+                    <div className="text-muted-foreground text-sm">Adaptamos cada servicio a las necesidades específicas de tu mascota</div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <Sparkles className="h-5 w-5 text-primary mt-1" />
+                  <div>
+                    <div className="font-semibold">Productos Premium</div>
+                    <div className="text-muted-foreground text-sm">Utilizamos solo productos de alta calidad, hipoalergénicos y seguros</div>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <Star className="h-5 w-5 text-primary mt-1" />
+                  <div>
+                    <div className="font-semibold">Profesionales Certificados</div>
+                    <div className="text-muted-foreground text-sm">Nuestro equipo cuenta con certificaciones en grooming profesional</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div className="relative">
+              <img 
+                src={servicesImage} 
+                alt="Servicios de grooming profesional" 
+                className="w-full rounded-xl shadow-soft"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Services;
