@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          booking_date: string
+          booking_time: string
+          created_at: string
+          id: string
+          owner_email: string | null
+          owner_name: string
+          owner_phone: string
+          pet_age: string | null
+          pet_breed: string | null
+          pet_name: string
+          pet_notes: string | null
+          pet_size: string | null
+          service_duration: string
+          service_id: string
+          service_name: string
+          service_price: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          booking_date: string
+          booking_time: string
+          created_at?: string
+          id?: string
+          owner_email?: string | null
+          owner_name: string
+          owner_phone: string
+          pet_age?: string | null
+          pet_breed?: string | null
+          pet_name: string
+          pet_notes?: string | null
+          pet_size?: string | null
+          service_duration: string
+          service_id: string
+          service_name: string
+          service_price: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          booking_date?: string
+          booking_time?: string
+          created_at?: string
+          id?: string
+          owner_email?: string | null
+          owner_name?: string
+          owner_phone?: string
+          pet_age?: string | null
+          pet_breed?: string | null
+          pet_name?: string
+          pet_notes?: string | null
+          pet_size?: string | null
+          service_duration?: string
+          service_id?: string
+          service_name?: string
+          service_price?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
