@@ -16,15 +16,15 @@ const Hero = () => {
             <div className="space-y-4">
               <div className="flex items-center space-x-2 text-primary">
                 <Sparkles className="h-5 w-5" />
-                <span className="text-sm font-medium tracking-wide uppercase">El mejor cuidado para tu mascota</span>
+                <span className="text-sm font-medium tracking-wide uppercase">O melhor cuidado para seu pet</span>
               </div>
               <h1 className="text-5xl lg:text-6xl font-bold font-heading text-foreground leading-tight">
                 Patinhas Pet
                 <span className="text-primary"> Pamper</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                Mimamos a tu mascota con servicios de grooming profesional. 
-                Baños relajantes, cortes de pelo estilosos y mucho amor en cada visita.
+                Mimamos seu pet com serviços de banho e tosa profissionais. 
+                Banhos relaxantes, tosa estilosa e muito amor em cada visita.
               </p>
             </div>
             
@@ -35,29 +35,29 @@ const Hero = () => {
                 className="bg-gradient-button hover:opacity-90 transition-all duration-300 shadow-soft hover:shadow-card text-lg px-8"
               >
                 <Calendar className="mr-2 h-5 w-5" />
-                Reservar Ahora
+                Agendar Agora
               </Button>
               <Button 
                 size="lg" 
                 variant="outline"
                 className="border-primary text-primary hover:bg-pink-accent transition-all duration-300"
               >
-                Ver Servicios
+                Ver Serviços
               </Button>
             </div>
 
             <div className="grid grid-cols-3 gap-8 pt-8">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">500+</div>
-                <div className="text-sm text-muted-foreground">Mascotas Felices</div>
+                <div className="text-sm text-muted-foreground">Pets Felizes</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">3</div>
-                <div className="text-sm text-muted-foreground">Años de Experiencia</div>
+                <div className="text-sm text-muted-foreground">Anos de Experiência</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">★ 4.9</div>
-                <div className="text-sm text-muted-foreground">Calificación</div>
+                <div className="text-sm text-muted-foreground">Avaliação</div>
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@ const Hero = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-float">
               <img 
                 src={heroImage} 
-                alt="Mascotas felices en Patinhas Pet Pamper" 
+                alt="Pets felizes no Patinhas Pet Pamper" 
                 className="w-full h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
@@ -77,7 +77,7 @@ const Hero = () => {
                 <Heart className="h-8 w-8 text-primary" fill="currentColor" />
                 <div>
                   <div className="font-semibold text-foreground">100% Amor</div>
-                  <div className="text-sm text-muted-foreground">Garantizado</div>
+                  <div className="text-sm text-muted-foreground">Garantido</div>
                 </div>
               </div>
             </div>

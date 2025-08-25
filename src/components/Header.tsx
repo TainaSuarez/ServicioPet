@@ -21,38 +21,45 @@ const Header = () => {
               onClick={() => scrollToSection('inicio')}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Inicio
+              Início
             </button>
             <button 
               onClick={() => scrollToSection('servicios')}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Servicios
+              Serviços
             </button>
             <button 
               onClick={() => scrollToSection('reservar')}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Reservar
+              Agendar
             </button>
             <button 
               onClick={() => scrollToSection('contacto')}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Contacto
+              Contato
             </button>
           </nav>
 
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-2 text-sm text-muted-foreground">
               <Phone className="h-4 w-4" />
-              <span>(11) 1234-5678</span>
+              <a 
+                href="https://wa.me/5555581326811" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                (55) 55 8132-6811
+              </a>
             </div>
             <Button 
               onClick={() => scrollToSection('reservar')}
               className="bg-gradient-button hover:opacity-90 transition-opacity shadow-soft"
             >
-              Reservar Cita
+              Agendar Horário
             </Button>
           </div>
         </div>

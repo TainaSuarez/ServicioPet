@@ -34,12 +34,12 @@ const BookingForm = () => {
   const { toast } = useToast();
 
   const services = [
-    { id: "basic-bath", name: "Baño Básico", price: 25, duration: "45 min" },
-    { id: "premium-bath", name: "Baño Premium", price: 40, duration: "60 min" },
-    { id: "haircut", name: "Corte de Pelo", price: 35, duration: "75 min" },
-    { id: "complete", name: "Paquete Completo", price: 65, duration: "120 min" },
-    { id: "spa", name: "Spa Relajante", price: 80, duration: "150 min" },
-    { id: "express", name: "Express", price: 20, duration: "30 min" }
+    { id: "basic-bath", name: "Banho Básico", price: 45, duration: "45 min" },
+    { id: "premium-bath", name: "Banho Premium", price: 75, duration: "60 min" },
+    { id: "haircut", name: "Tosa", price: 65, duration: "75 min" },
+    { id: "complete", name: "Pacote Completo", price: 120, duration: "120 min" },
+    { id: "spa", name: "Spa Relaxante", price: 150, duration: "150 min" },
+    { id: "express", name: "Express", price: 35, duration: "30 min" }
   ];
 
   const timeSlots = [
@@ -47,7 +47,7 @@ const BookingForm = () => {
     "14:00", "15:00", "16:00", "17:00", "18:00"
   ];
 
-  const sizes = ["Pequeño (hasta 10kg)", "Mediano (10-25kg)", "Grande (25kg+)"];
+  const sizes = ["Pequeno (até 10kg)", "Médio (10-25kg)", "Grande (25kg+)"];
 
   const selectedServiceData = services.find(s => s.id === selectedService);
 
@@ -56,16 +56,16 @@ const BookingForm = () => {
     
     if (!selectedDate || !selectedService || !selectedTime || !petInfo.name || !ownerInfo.name || !ownerInfo.phone) {
       toast({
-        title: "Faltan datos",
-        description: "Por favor completa todos los campos obligatorios.",
+        title: "Dados incompletos",
+        description: "Por favor preencha todos os campos obrigatórios.",
         variant: "destructive"
       });
       return;
     }
 
     toast({
-      title: "¡Reserva confirmada!",
-      description: `Tu cita para ${petInfo.name} ha sido agendada para el ${format(selectedDate, "PPPP", { locale: es })} a las ${selectedTime}.`,
+      title: "Agendamento confirmado!",
+      description: `Seu horário para ${petInfo.name} foi agendado para ${format(selectedDate, "PPPP", { locale: es })} às ${selectedTime}.`,
     });
 
     // Reset form
@@ -81,14 +81,14 @@ const BookingForm = () => {
       <div className="container mx-auto px-4">
         <div className="text-center space-y-4 mb-16">
           <Badge variant="secondary" className="text-primary">
-            Reservar Cita
+            Agendar Horário
           </Badge>
           <h2 className="text-4xl font-bold font-heading text-foreground">
-            Agenda tu Cita
+            Agende seu Horário
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Completa el formulario y selecciona tu fecha preferida para brindarle 
-            a tu mascota el mejor cuidado.
+            Preencha o formulário e selecione sua data preferida para dar 
+            ao seu pet o melhor cuidado.
           </p>
         </div>
 
@@ -100,37 +100,37 @@ const BookingForm = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <PawPrint className="h-5 w-5 text-primary" />
-                    <span>Información de tu Mascota</span>
+                    <span>Informações do seu Pet</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="petName">Nombre de la mascota *</Label>
+                    <Label htmlFor="petName">Nome do pet *</Label>
                     <Input
                       id="petName"
                       value={petInfo.name}
                       onChange={(e) => setPetInfo({ ...petInfo, name: e.target.value })}
-                      placeholder="Ej: Max"
+                      placeholder="Ex: Max"
                       required
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="breed">Raza</Label>
+                    <Label htmlFor="breed">Raça</Label>
                     <Input
                       id="breed"
                       value={petInfo.breed}
                       onChange={(e) => setPetInfo({ ...petInfo, breed: e.target.value })}
-                      placeholder="Ej: Golden Retriever"
+                      placeholder="Ex: Golden Retriever"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="size">Tamaño</Label>
+                      <Label htmlFor="size">Tamanho</Label>
                       <Select value={petInfo.size} onValueChange={(value) => setPetInfo({ ...petInfo, size: value })}>
                         <SelectTrigger>
-                          <SelectValue placeholder="Seleccionar" />
+                          <SelectValue placeholder="Selecionar" />
                         </SelectTrigger>
                         <SelectContent>
                           {sizes.map((size) => (
@@ -141,23 +141,23 @@ const BookingForm = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="age">Edad</Label>
+                      <Label htmlFor="age">Idade</Label>
                       <Input
                         id="age"
                         value={petInfo.age}
                         onChange={(e) => setPetInfo({ ...petInfo, age: e.target.value })}
-                        placeholder="2 años"
+                        placeholder="2 anos"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="notes">Notas especiales</Label>
+                    <Label htmlFor="notes">Observações especiais</Label>
                     <Textarea
                       id="notes"
                       value={petInfo.notes}
                       onChange={(e) => setPetInfo({ ...petInfo, notes: e.target.value })}
-                      placeholder="Comportamiento, alergias, preferencias..."
+                      placeholder="Comportamento, alergias, preferências..."
                       rows={3}
                     />
                   </div>
@@ -167,27 +167,27 @@ const BookingForm = () => {
               {/* Owner Information */}
               <Card className="bg-gradient-card border-0 shadow-card">
                 <CardHeader>
-                  <CardTitle>Información de Contacto</CardTitle>
+                  <CardTitle>Informações de Contato</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="ownerName">Tu nombre *</Label>
+                    <Label htmlFor="ownerName">Seu nome *</Label>
                     <Input
                       id="ownerName"
                       value={ownerInfo.name}
                       onChange={(e) => setOwnerInfo({ ...ownerInfo, name: e.target.value })}
-                      placeholder="Nombre completo"
+                      placeholder="Nome completo"
                       required
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Teléfono *</Label>
+                    <Label htmlFor="phone">Telefone *</Label>
                     <Input
                       id="phone"
                       value={ownerInfo.phone}
                       onChange={(e) => setOwnerInfo({ ...ownerInfo, phone: e.target.value })}
-                      placeholder="(11) 1234-5678"
+                      placeholder="(55) 55 8132-6811"
                       required
                     />
                   </div>
@@ -199,7 +199,7 @@ const BookingForm = () => {
                       type="email"
                       value={ownerInfo.email}
                       onChange={(e) => setOwnerInfo({ ...ownerInfo, email: e.target.value })}
-                      placeholder="ejemplo@correo.com"
+                      placeholder="exemplo@email.com"
                     />
                   </div>
                 </CardContent>
@@ -209,7 +209,7 @@ const BookingForm = () => {
             {/* Service Selection */}
             <Card className="bg-gradient-card border-0 shadow-card">
               <CardHeader>
-                <CardTitle>Selecciona tu Servicio</CardTitle>
+                <CardTitle>Selecione seu Serviço</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -232,8 +232,7 @@ const BookingForm = () => {
                             <span>{service.duration}</span>
                           </div>
                           <div className="flex items-center space-x-1 font-bold text-primary">
-                            <DollarSign className="h-3 w-3" />
-                            <span>{service.price}</span>
+                            <span>R$ {service.price}</span>
                           </div>
                         </div>
                       </div>
@@ -247,7 +246,7 @@ const BookingForm = () => {
             <div className="grid lg:grid-cols-2 gap-8">
               <Card className="bg-gradient-card border-0 shadow-card">
                 <CardHeader>
-                  <CardTitle>Selecciona la Fecha</CardTitle>
+                  <CardTitle>Selecione a Data</CardTitle>
                 </CardHeader>
                 <CardContent className="flex justify-center">
                   <Calendar
@@ -263,7 +262,7 @@ const BookingForm = () => {
 
               <Card className="bg-gradient-card border-0 shadow-card">
                 <CardHeader>
-                  <CardTitle>Horarios Disponibles</CardTitle>
+                  <CardTitle>Horários Disponíveis</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-3 gap-3">
@@ -283,13 +282,13 @@ const BookingForm = () => {
                   
                   {selectedDate && selectedService && selectedTime && (
                     <div className="mt-6 p-4 bg-pink-accent rounded-lg">
-                      <h4 className="font-semibold mb-2">Resumen de tu Reserva:</h4>
+                      <h4 className="font-semibold mb-2">Resumo do seu Agendamento:</h4>
                       <div className="space-y-1 text-sm">
-                        <div>Servicio: {selectedServiceData?.name}</div>
-                        <div>Fecha: {format(selectedDate, "PPPP", { locale: es })}</div>
-                        <div>Hora: {selectedTime}</div>
-                        <div>Duración: {selectedServiceData?.duration}</div>
-                        <div className="font-bold text-primary">Total: ${selectedServiceData?.price}</div>
+                        <div>Serviço: {selectedServiceData?.name}</div>
+                        <div>Data: {format(selectedDate, "PPPP", { locale: es })}</div>
+                        <div>Horário: {selectedTime}</div>
+                        <div>Duração: {selectedServiceData?.duration}</div>
+                        <div className="font-bold text-primary">Total: R$ {selectedServiceData?.price}</div>
                       </div>
                     </div>
                   )}
@@ -303,7 +302,7 @@ const BookingForm = () => {
                 size="lg"
                 className="bg-gradient-button hover:opacity-90 transition-opacity shadow-soft px-12"
               >
-                Confirmar Reserva
+                Confirmar Agendamento
               </Button>
             </div>
           </form>

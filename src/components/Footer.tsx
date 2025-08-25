@@ -11,8 +11,8 @@ const Footer = () => {
               <span className="text-xl font-bold font-heading">Patinhas Pet Pamper</span>
             </div>
             <p className="text-sm opacity-80">
-              El mejor cuidado y amor para tu mascota. Más que grooming, 
-              brindamos experiencias únicas llenas de cariño.
+              O melhor cuidado e amor para seu pet. Mais que banho e tosa, 
+              oferecemos experiências únicas cheias de carinho.
             </p>
             <div className="flex space-x-4">
               <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary/30 transition-colors">
@@ -25,11 +25,18 @@ const Footer = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-bold">Contacto</h4>
+            <h4 className="text-lg font-bold">Contato</h4>
             <div className="space-y-2 text-sm">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary" />
-                <span>(11) 1234-5678</span>
+                <a 
+                  href="https://wa.me/5555581326811" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  (55) 55 8132-6811
+                </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary" />
@@ -37,16 +44,16 @@ const Footer = () => {
               </div>
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-primary mt-0.5" />
-                <span>Av. Libertador 1234<br />Palermo, Buenos Aires</span>
+                <span>Rua das Flores, 1234<br />Vila Madalena, São Paulo - SP</span>
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-lg font-bold">Horarios</h4>
+            <h4 className="text-lg font-bold">Horários</h4>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span>Lun - Vie</span>
+                <span>Seg - Sex</span>
                 <span>9:00 - 19:00</span>
               </div>
               <div className="flex justify-between">
@@ -55,7 +62,7 @@ const Footer = () => {
               </div>
               <div className="flex justify-between">
                 <span>Domingos</span>
-                <span className="opacity-60">Cerrado</span>
+                <span className="opacity-60">Fechado</span>
               </div>
             </div>
           </div>
@@ -63,8 +70,8 @@ const Footer = () => {
 
         <div className="border-t border-primary/20 pt-8 text-center">
           <p className="text-sm opacity-60">
-            © 2024 Patinhas Pet Pamper. Todos los derechos reservados. 
-            Hecho con ❤️ para nuestros amigos peludos.
+            © 2024 Patinhas Pet Pamper. Todos os direitos reservados. 
+            Feito com ❤️ para nossos amigos peludos.
           </p>
         </div>
       </div>
