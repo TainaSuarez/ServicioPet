@@ -223,12 +223,6 @@ npm run preview
 
 ## 🚀 Deploy
 
-### Deploy no Lovable
-
-1. Conecte seu repositório GitHub ao Lovable
-2. Clique em "Publish" no editor Lovable
-3. Sua aplicação será automaticamente deployada
-
 ### Deploy Manual
 
 1. Execute o build:
